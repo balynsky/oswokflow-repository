@@ -1,6 +1,0 @@
-<mappings>
-  <mapping>
-    <property name="rootCause" ignore="true" />
-    <property name="cause" ignore="true" />
-  </mapping>
-</mappings>

@@ -1,5 +1,0 @@
-<mappings>
-  <mapping>
-    <property name="results" componentType="com.opensymphony.workflow.loader.ResultDescriptor" />
-  </mapping>
-</mappings>
