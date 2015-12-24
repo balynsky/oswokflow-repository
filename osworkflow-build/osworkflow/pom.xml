@@ -114,6 +114,7 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+<!--
         <dependency>
             <groupId>glue</groupId>
             <artifactId>glue</artifactId>
@@ -121,6 +122,7 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+-->
         <dependency>
             <groupId>org.codehaus.xfire</groupId>
             <artifactId>xfire-core</artifactId>
