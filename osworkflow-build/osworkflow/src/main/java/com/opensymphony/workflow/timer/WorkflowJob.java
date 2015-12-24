@@ -13,10 +13,10 @@ package com.opensymphony.workflow.timer;
 import com.opensymphony.workflow.Workflow;
 import com.opensymphony.workflow.WorkflowException;
 
-import electric.registry.Registry;
-import electric.registry.RegistryException;
+//import electric.registry.Registry;
+//import electric.registry.RegistryException;
 
-import electric.util.Context;
+//import electric.util.Context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,7 +29,6 @@ import org.quartz.JobExecutionException;
 
 /**
  * DOCUMENT ME!
- *
  */
 public class WorkflowJob implements Job {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -39,7 +38,7 @@ public class WorkflowJob implements Job {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        try {
+        /*try {
             JobDataMap data = jobExecutionContext.getJobDetail().getJobDataMap();
             long id = data.getLong("entryId");
             int triggerId = data.getInt("triggerId");
@@ -60,6 +59,6 @@ public class WorkflowJob implements Job {
             //this cast is a fairly horrible hack, but it's more due to the fact that quartz is stupid enough to have wrapped exceptions
             //wrap Exception, instead of Throwable.
             throw new JobExecutionException("Error Executing trigger", (e.getRootCause() != null) ? (Exception) e.getRootCause() : e, true);
-        }
+        }*/
     }
 }

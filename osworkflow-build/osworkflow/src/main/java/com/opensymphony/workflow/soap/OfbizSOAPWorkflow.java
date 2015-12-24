@@ -27,7 +27,7 @@ import com.opensymphony.workflow.ofbiz.OfbizWorkflow;
 import com.opensymphony.workflow.query.WorkflowExpressionQuery;
 import com.opensymphony.workflow.query.WorkflowQuery;
 
-import electric.util.Context;
+//import electric.util.Context;
 
 
 /**
@@ -133,8 +133,8 @@ public class OfbizSOAPWorkflow implements Workflow {
     }
 
     protected String getRemoteUser() {
-        HttpServletRequest request = (HttpServletRequest) Context.thread().getProperty("httpRequest");
-
-        return request.getRemoteUser();
+        /*HttpServletRequest request = (HttpServletRequest) Context.thread().getProperty("httpRequest");
+        return request.getRemoteUser();*/
+        return null;
     }
 }
