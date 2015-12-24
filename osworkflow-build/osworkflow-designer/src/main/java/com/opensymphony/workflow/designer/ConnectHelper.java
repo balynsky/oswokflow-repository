@@ -255,7 +255,7 @@ public class ConnectHelper
 
     ActionDescriptor sourceAction = selectType.getRelatedAction();
 
-    int type = selectType.getType();
+    int type = selectType.getActionType();
 
     if(type == CONDITIONAL)
     {

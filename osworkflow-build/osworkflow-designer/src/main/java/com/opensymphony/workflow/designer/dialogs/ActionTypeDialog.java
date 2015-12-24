@@ -57,7 +57,7 @@ public class ActionTypeDialog extends BaseDialog implements ItemListener
     builder.nextLine();
   }
 
-  public int getType()
+  public int getActionType()
   {
     switch(actionType.getSelectedIndex())
     {
