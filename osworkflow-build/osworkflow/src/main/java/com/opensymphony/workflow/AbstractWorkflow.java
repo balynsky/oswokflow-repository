@@ -82,12 +82,13 @@ public class AbstractWorkflow implements Workflow {
 
     /**
      * Get the available actions for the specified workflow instance.
-     * @ejb.interface-method
-     * @param id The workflow instance id.
+     *
+     * @param id     The workflow instance id.
      * @param inputs The inputs map to pass on to conditions
      * @return An array of action id's that can be performed on the specified entry.
      * @throws IllegalArgumentException if the specified id does not exist, or if its workflow
-     * descriptor is no longer available or has become invalid.
+     *                                  descriptor is no longer available or has become invalid.
+     * @ejb.interface-method
      */
     public int[] getAvailableActions(long id, Map inputs) {
         try {
@@ -119,7 +120,7 @@ public class AbstractWorkflow implements Workflow {
             List globalActions = wf.getGlobalActions();
 
             for (Iterator iterator = globalActions.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 ActionDescriptor action = (ActionDescriptor) iterator.next();
                 RestrictionDescriptor restriction = action.getRestriction();
                 ConditionsDescriptor conditions = null;
@@ -138,7 +139,7 @@ public class AbstractWorkflow implements Workflow {
 
             // get normal actions
             for (Iterator iterator = currentSteps.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 Step step = (Step) iterator.next();
                 l.addAll(getAvailableActionsForStep(wf, step, transientVars, ps));
             }
@@ -167,9 +168,9 @@ public class AbstractWorkflow implements Workflow {
     /**
      * Get the configuration for this workflow.
      * This method also checks if the configuration has been initialized, and if not, initializes it.
+     *
      * @return The configuration that was set.
      * If no configuration was set, then the default (static) configuration is returned.
-     *
      */
     public Configuration getConfiguration() {
         Configuration config = (configuration != null) ? configuration : DefaultConfiguration.INSTANCE;
@@ -250,8 +251,9 @@ public class AbstractWorkflow implements Workflow {
 
     /**
      * Get the PropertySet for the specified workflow ID
-     * @ejb.interface-method
+     *
      * @param id The workflow ID
+     * @ejb.interface-method
      */
     public PropertySet getPropertySet(long id) {
         PropertySet ps = null;
@@ -301,7 +303,7 @@ public class AbstractWorkflow implements Workflow {
             List s = new ArrayList();
 
             for (Iterator interator = currentSteps.iterator();
-                    interator.hasNext();) {
+                 interator.hasNext(); ) {
                 Step step = (Step) interator.next();
 
                 int stepId = step.getStepId();
@@ -311,7 +313,7 @@ public class AbstractWorkflow implements Workflow {
                 List securities = xmlStep.getPermissions();
 
                 for (Iterator iterator2 = securities.iterator();
-                        iterator2.hasNext();) {
+                     iterator2.hasNext(); ) {
                     PermissionDescriptor security = (PermissionDescriptor) iterator2.next();
 
                     // to have the permission, the condition must be met or not specified
@@ -369,6 +371,7 @@ public class AbstractWorkflow implements Workflow {
 
     /**
      * Get a list of workflow names available
+     *
      * @return String[] an array of workflow names.
      * @ejb.interface-method
      */
@@ -390,11 +393,11 @@ public class AbstractWorkflow implements Workflow {
     }
 
     /**
-     * @ejb.interface-method
-     * @param workflowName the name of the workflow to check
+     * @param workflowName  the name of the workflow to check
      * @param initialAction The initial action to check
-     * @param inputs the inputs map
+     * @param inputs        the inputs map
      * @return true if the workflow can be initialized
+     * @ejb.interface-method
      */
     public boolean canInitialize(String workflowName, int initialAction, Map inputs) {
         final String mockWorkflowName = workflowName;
@@ -450,45 +453,45 @@ public class AbstractWorkflow implements Workflow {
             boolean result = false;
 
             switch (newState) {
-            case WorkflowEntry.COMPLETED:
+                case WorkflowEntry.COMPLETED:
 
-                if (currentState == WorkflowEntry.ACTIVATED) {
-                    result = true;
-                }
+                    if (currentState == WorkflowEntry.ACTIVATED) {
+                        result = true;
+                    }
 
-                break;
+                    break;
 
-            case WorkflowEntry.CREATED:
-                result = false;
+                case WorkflowEntry.CREATED:
+                    result = false;
 
-            case WorkflowEntry.ACTIVATED:
+                case WorkflowEntry.ACTIVATED:
 
-                if ((currentState == WorkflowEntry.CREATED) || (currentState == WorkflowEntry.SUSPENDED)) {
-                    result = true;
-                }
+                    if ((currentState == WorkflowEntry.CREATED) || (currentState == WorkflowEntry.SUSPENDED)) {
+                        result = true;
+                    }
 
-                break;
+                    break;
 
-            case WorkflowEntry.SUSPENDED:
+                case WorkflowEntry.SUSPENDED:
 
-                if (currentState == WorkflowEntry.ACTIVATED) {
-                    result = true;
-                }
+                    if (currentState == WorkflowEntry.ACTIVATED) {
+                        result = true;
+                    }
 
-                break;
+                    break;
 
-            case WorkflowEntry.KILLED:
+                case WorkflowEntry.KILLED:
 
-                if ((currentState == WorkflowEntry.CREATED) || (currentState == WorkflowEntry.ACTIVATED) || (currentState == WorkflowEntry.SUSPENDED)) {
-                    result = true;
-                }
+                    if ((currentState == WorkflowEntry.CREATED) || (currentState == WorkflowEntry.ACTIVATED) || (currentState == WorkflowEntry.SUSPENDED)) {
+                        result = true;
+                    }
 
-                break;
+                    break;
 
-            default:
-                result = false;
+                default:
+                    result = false;
 
-                break;
+                    break;
             }
 
             return result;
@@ -552,7 +555,7 @@ public class AbstractWorkflow implements Workflow {
 
         //check global actions
         for (Iterator gIter = wf.getGlobalActions().iterator();
-                !validAction && gIter.hasNext();) {
+             !validAction && gIter.hasNext(); ) {
             ActionDescriptor actionDesc = (ActionDescriptor) gIter.next();
 
             if (actionDesc.getId() == actionId) {
@@ -565,12 +568,12 @@ public class AbstractWorkflow implements Workflow {
         }
 
         for (Iterator iter = currentSteps.iterator();
-                !validAction && iter.hasNext();) {
+             !validAction && iter.hasNext(); ) {
             Step step = (Step) iter.next();
             StepDescriptor s = wf.getStep(step.getStepId());
 
             for (Iterator iterator = s.getActions().iterator();
-                    !validAction && iterator.hasNext();) {
+                 !validAction && iterator.hasNext(); ) {
                 ActionDescriptor actionDesc = (ActionDescriptor) iterator.next();
 
                 if (actionDesc.getId() == actionId) {
@@ -703,7 +706,7 @@ public class AbstractWorkflow implements Workflow {
             return l;
         }
 
-        for (Iterator iterator2 = actions.iterator(); iterator2.hasNext();) {
+        for (Iterator iterator2 = actions.iterator(); iterator2.hasNext(); ) {
             ActionDescriptor action = (ActionDescriptor) iterator2.next();
             RestrictionDescriptor restriction = action.getRestriction();
             ConditionsDescriptor conditions = null;
@@ -754,7 +757,7 @@ public class AbstractWorkflow implements Workflow {
             List globalActions = wf.getGlobalActions();
 
             for (Iterator iterator = globalActions.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 ActionDescriptor action = (ActionDescriptor) iterator.next();
 
                 transientVars.put("actionId", new Integer(action.getId()));
@@ -768,7 +771,7 @@ public class AbstractWorkflow implements Workflow {
 
             // get normal actions
             for (Iterator iterator = currentSteps.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 Step step = (Step) iterator.next();
                 l.addAll(getAvailableAutoActionsForStep(wf, step, transientVars, ps));
             }
@@ -806,7 +809,7 @@ public class AbstractWorkflow implements Workflow {
             return l;
         }
 
-        for (Iterator iterator2 = actions.iterator(); iterator2.hasNext();) {
+        for (Iterator iterator2 = actions.iterator(); iterator2.hasNext(); ) {
             ActionDescriptor action = (ActionDescriptor) iterator2.next();
 
             transientVars.put("actionId", new Integer(action.getId()));
@@ -836,7 +839,7 @@ public class AbstractWorkflow implements Workflow {
 
         boolean isCompleted = true;
 
-        for (Iterator iterator = currentSteps.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = currentSteps.iterator(); iterator.hasNext(); ) {
             Step step = (Step) iterator.next();
             StepDescriptor stepDes = wf.getStep(step.getStepId());
 
@@ -870,9 +873,9 @@ public class AbstractWorkflow implements Workflow {
     /**
      * Executes a function.
      *
-     * @param function the function to execute
+     * @param function      the function to execute
      * @param transientVars the transientVars given by the end-user
-     * @param ps the persistence variables
+     * @param ps            the persistence variables
      */
     protected void executeFunction(FunctionDescriptor function, Map transientVars, PropertySet ps) throws WorkflowException {
         if (function != null) {
@@ -881,7 +884,7 @@ public class AbstractWorkflow implements Workflow {
             Map args = new HashMap(function.getArgs());
 
             for (Iterator iterator = args.entrySet().iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();
                 mapEntry.setValue(getConfiguration().getVariableResolver().translateVariables((String) mapEntry.getValue(), transientVars, ps));
             }
@@ -909,7 +912,7 @@ public class AbstractWorkflow implements Workflow {
         Map args = new HashMap(conditionDesc.getArgs());
 
         for (Iterator iterator = args.entrySet().iterator();
-                iterator.hasNext();) {
+             iterator.hasNext(); ) {
             Map.Entry mapEntry = (Map.Entry) iterator.next();
             mapEntry.setValue(getConfiguration().getVariableResolver().translateVariables((String) mapEntry.getValue(), transientVars, ps));
         }
@@ -956,7 +959,7 @@ public class AbstractWorkflow implements Workflow {
         boolean and = "AND".equals(conditionType);
         boolean or = !and;
 
-        for (Iterator iterator = conditions.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = conditions.iterator(); iterator.hasNext(); ) {
             AbstractDescriptor descriptor = (AbstractDescriptor) iterator.next();
             boolean result;
 
@@ -994,6 +997,7 @@ public class AbstractWorkflow implements Workflow {
     protected void populateTransientMap(WorkflowEntry entry, Map transientVars, List registers, Integer actionId, Collection currentSteps, PropertySet ps) throws WorkflowException {
         transientVars.put("context", context);
         transientVars.put("entry", entry);
+        transientVars.put("caller", context.getCaller());
         transientVars.put("store", getPersistence());
         transientVars.put("configuration", getConfiguration());
         transientVars.put("descriptor", getConfiguration().getWorkflow(entry.getWorkflowName()));
@@ -1005,7 +1009,7 @@ public class AbstractWorkflow implements Workflow {
         transientVars.put("currentSteps", new ArrayList(currentSteps));
 
         // now talk to the registers for any extra objects needed in scope
-        for (Iterator iterator = registers.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = registers.iterator(); iterator.hasNext(); ) {
             RegisterDescriptor register = (RegisterDescriptor) iterator.next();
             Map args = register.getArgs();
 
@@ -1057,7 +1061,7 @@ public class AbstractWorkflow implements Workflow {
             List stepPostFunctions = wf.getStep(step.getStepId()).getPostFunctions();
 
             for (Iterator iterator = stepPostFunctions.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 FunctionDescriptor function = (FunctionDescriptor) iterator.next();
                 executeFunction(function, transientVars, ps);
             }
@@ -1066,7 +1070,7 @@ public class AbstractWorkflow implements Workflow {
         // preFunctions
         List preFunctions = action.getPreFunctions();
 
-        for (Iterator iterator = preFunctions.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = preFunctions.iterator(); iterator.hasNext(); ) {
             FunctionDescriptor function = (FunctionDescriptor) iterator.next();
             executeFunction(function, transientVars, ps);
         }
@@ -1078,7 +1082,7 @@ public class AbstractWorkflow implements Workflow {
         ResultDescriptor[] theResults = new ResultDescriptor[1];
 
         for (Iterator iterator = conditionalResults.iterator();
-                iterator.hasNext();) {
+             iterator.hasNext(); ) {
             ConditionalResultDescriptor conditionalResult = (ConditionalResultDescriptor) iterator.next();
 
             if (passesConditions(null, conditionalResult.getConditions(), Collections.unmodifiableMap(transientVars), ps, (step != null) ? step.getStepId() : (-1))) {
@@ -1111,7 +1115,7 @@ public class AbstractWorkflow implements Workflow {
         if ((extraPreFunctions != null) && (extraPreFunctions.size() > 0)) {
             // run any extra pre-functions that haven't been run already
             for (Iterator iterator = extraPreFunctions.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 FunctionDescriptor function = (FunctionDescriptor) iterator.next();
                 executeFunction(function, transientVars, ps);
             }
@@ -1127,7 +1131,7 @@ public class AbstractWorkflow implements Workflow {
 
             //check all results in the split and verify the input against any validators specified
             //also build up all the pre and post functions that should be called.
-            for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = results.iterator(); iterator.hasNext(); ) {
                 ResultDescriptor resultDescriptor = (ResultDescriptor) iterator.next();
 
                 if (resultDescriptor.getValidators().size() > 0) {
@@ -1140,7 +1144,7 @@ public class AbstractWorkflow implements Workflow {
 
             // now execute the pre-functions
             for (Iterator iterator = splitPreFunctions.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 FunctionDescriptor function = (FunctionDescriptor) iterator.next();
                 executeFunction(function, transientVars, ps);
             }
@@ -1153,7 +1157,7 @@ public class AbstractWorkflow implements Workflow {
                 results.toArray(theResults);
 
                 for (Iterator iterator = results.iterator();
-                        iterator.hasNext();) {
+                     iterator.hasNext(); ) {
                     ResultDescriptor resultDescriptor = (ResultDescriptor) iterator.next();
                     Step moveToHistoryStep = null;
 
@@ -1164,7 +1168,7 @@ public class AbstractWorkflow implements Workflow {
                     long[] previousIds = null;
 
                     if (step != null) {
-                        previousIds = new long[] {step.getId()};
+                        previousIds = new long[]{step.getId()};
                     }
 
                     createNewCurrentStep(resultDescriptor, entry, store, action.getId(), moveToHistoryStep, previousIds, transientVars, ps);
@@ -1174,7 +1178,7 @@ public class AbstractWorkflow implements Workflow {
 
             // now execute the post-functions
             for (Iterator iterator = splitPostFunctions.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 FunctionDescriptor function = (FunctionDescriptor) iterator.next();
                 executeFunction(function, transientVars, ps);
             }
@@ -1191,7 +1195,7 @@ public class AbstractWorkflow implements Workflow {
 
             //currentSteps = store.findCurrentSteps(id); // shouldn't need to refresh the list
             for (Iterator iterator = currentSteps.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 Step currentStep = (Step) iterator.next();
 
                 if (currentStep.getId() != step.getId()) {
@@ -1207,7 +1211,7 @@ public class AbstractWorkflow implements Workflow {
             //that might be part of the join
             List historySteps = store.findHistorySteps(entry.getId());
 
-            for (Iterator i = historySteps.iterator(); i.hasNext();) {
+            for (Iterator i = historySteps.iterator(); i.hasNext(); ) {
                 Step historyStep = (Step) i.next();
 
                 if (historyStep.getId() != step.getId()) {
@@ -1233,7 +1237,7 @@ public class AbstractWorkflow implements Workflow {
 
                 // now execute the pre-functions
                 for (Iterator iterator = joinresult.getPreFunctions().iterator();
-                        iterator.hasNext();) {
+                     iterator.hasNext(); ) {
                     FunctionDescriptor function = (FunctionDescriptor) iterator.next();
                     executeFunction(function, transientVars, ps);
                 }
@@ -1242,7 +1246,7 @@ public class AbstractWorkflow implements Workflow {
                 int i = 1;
 
                 for (Iterator iterator = joinSteps.iterator();
-                        iterator.hasNext();) {
+                     iterator.hasNext(); ) {
                     Step currentStep = (Step) iterator.next();
 
                     if (currentStep.getId() != step.getId()) {
@@ -1268,7 +1272,7 @@ public class AbstractWorkflow implements Workflow {
 
                 // now execute the post-functions
                 for (Iterator iterator = joinresult.getPostFunctions().iterator();
-                        iterator.hasNext();) {
+                     iterator.hasNext(); ) {
                     FunctionDescriptor function = (FunctionDescriptor) iterator.next();
                     executeFunction(function, transientVars, ps);
                 }
@@ -1278,7 +1282,7 @@ public class AbstractWorkflow implements Workflow {
             long[] previousIds = null;
 
             if (step != null) {
-                previousIds = new long[] {step.getId()};
+                previousIds = new long[]{step.getId()};
             }
 
             if (!action.isFinish()) {
@@ -1289,7 +1293,7 @@ public class AbstractWorkflow implements Workflow {
         // postFunctions (BOTH)
         if (extraPostFunctions != null) {
             for (Iterator iterator = extraPostFunctions.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 FunctionDescriptor function = (FunctionDescriptor) iterator.next();
                 executeFunction(function, transientVars, ps);
             }
@@ -1297,7 +1301,7 @@ public class AbstractWorkflow implements Workflow {
 
         List postFunctions = action.getPostFunctions();
 
-        for (Iterator iterator = postFunctions.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = postFunctions.iterator(); iterator.hasNext(); ) {
             FunctionDescriptor function = (FunctionDescriptor) iterator.next();
             executeFunction(function, transientVars, ps);
         }
@@ -1328,14 +1332,14 @@ public class AbstractWorkflow implements Workflow {
     /**
      * Validates input against a list of ValidatorDescriptor objects.
      *
-     * @param entry the workflow instance
-     * @param validators the list of ValidatorDescriptors
+     * @param entry         the workflow instance
+     * @param validators    the list of ValidatorDescriptors
      * @param transientVars the transientVars
-     * @param ps the persistence variables
+     * @param ps            the persistence variables
      * @throws InvalidInputException if the input is deemed invalid by any validator
      */
     protected void verifyInputs(WorkflowEntry entry, List validators, Map transientVars, PropertySet ps) throws WorkflowException {
-        for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = validators.iterator(); iterator.hasNext(); ) {
             ValidatorDescriptor input = (ValidatorDescriptor) iterator.next();
 
             if (input != null) {
@@ -1343,7 +1347,7 @@ public class AbstractWorkflow implements Workflow {
                 HashMap args = new HashMap(input.getArgs());
 
                 for (Iterator iterator2 = args.entrySet().iterator();
-                        iterator2.hasNext();) {
+                     iterator2.hasNext(); ) {
                     Map.Entry mapEntry = (Map.Entry) iterator2.next();
                     mapEntry.setValue(getConfiguration().getVariableResolver().translateVariables((String) mapEntry.getValue(), transientVars, ps));
                 }
@@ -1376,6 +1380,7 @@ public class AbstractWorkflow implements Workflow {
 
     /**
      * check if an action is available or not
+     *
      * @param action The action descriptor
      * @return true if the action is available
      */
@@ -1417,7 +1422,7 @@ public class AbstractWorkflow implements Workflow {
             return (Step) currentSteps.get(0);
         }
 
-        for (Iterator iterator = currentSteps.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = currentSteps.iterator(); iterator.hasNext(); ) {
             Step step = (Step) iterator.next();
             ActionDescriptor action = wfDesc.getStep(step.getStepId()).getAction(actionId);
 
@@ -1556,7 +1561,7 @@ public class AbstractWorkflow implements Workflow {
             List preFunctions = step.getPreFunctions();
 
             for (Iterator iterator = preFunctions.iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 FunctionDescriptor function = (FunctionDescriptor) iterator.next();
                 executeFunction(function, transientVars, ps);
             }

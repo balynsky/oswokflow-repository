@@ -20,8 +20,8 @@ import javax.xml.parsers.*;
 
 /**
  * @author Hani Suleiman
- * Date: May 10, 2002
- * Time: 11:30:41 AM
+ *         Date: May 10, 2002
+ *         Time: 11:30:41 AM
  */
 public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Serializable {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -32,6 +32,7 @@ public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Seria
 
     protected Map workflows;
     protected boolean reload;
+    protected String basedir;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -59,7 +60,7 @@ public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Seria
 
         if (c.descriptor != null) {
             if (reload) {
-                File file = new File(c.url.getFile());
+                File file = getFile(c.location, c.type);
 
                 if (file.exists() && (file.lastModified() > c.lastModified)) {
                     c.lastModified = file.lastModified();
@@ -117,7 +118,7 @@ public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Seria
             Element root = (Element) doc.getElementsByTagName("workflows").item(0);
             workflows = new HashMap();
 
-            String basedir = getBaseDir(root);
+            basedir = getBaseDir(root);
 
             List list = XMLUtil.getChildElements(root, "workflow");
 
@@ -165,9 +166,9 @@ public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Seria
         // [KAP] comment this line to disable all the validation while saving a workflow
         //descriptor.validate();
         try {
-            out = new OutputStreamWriter(new FileOutputStream(c.url.getFile() + ".new"), "utf-8");
+            out = new OutputStreamWriter(new FileOutputStream(getFile(c.location, c.type) + ".new"), "utf-8");
         } catch (FileNotFoundException ex) {
-            throw new FactoryException("Could not create new file to save workflow " + c.url.getFile());
+            throw new FactoryException("Could not create new file to save workflow " + getFile(c.location, c.type));
         } catch (UnsupportedEncodingException ex) {
             throw new FactoryException("utf-8 encoding not supported, contact your JVM vendor!");
         }
@@ -176,9 +177,9 @@ public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Seria
 
         //write it out to a new file, to ensure we don't end up with a messed up file if we're interrupted halfway for some reason
         //now lets rename
-        File original = new File(c.url.getFile());
-        File backup = new File(c.url.getFile() + ".bak");
-        File updated = new File(c.url.getFile() + ".new");
+        File original = getFile(c.location, c.type);
+        File backup = getFile(c.location + ".bak", c.type);
+        File updated = getFile(c.location + ".new", c.type);
         boolean isOK = !original.exists() || original.renameTo(backup);
 
         if (!isOK) {
@@ -198,6 +199,7 @@ public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Seria
 
     /**
      * Get where to find workflow XML files.
+     *
      * @param root The root element of the XML file.
      * @return The absolute base dir used for finding these files or null.
      */
@@ -280,9 +282,9 @@ public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Seria
 
     private void loadWorkflow(WorkflowConfig c, boolean validate) throws FactoryException {
         try {
-            c.descriptor = WorkflowLoader.load(c.url, validate);
+            c.descriptor = WorkflowLoader.load(getInputStream(c.location), validate);
         } catch (Exception e) {
-            throw new FactoryException("Error in workflow descriptor: " + c.url, e);
+            throw new FactoryException("Error in workflow descriptor: " + c.location, e);
         }
     }
 
@@ -322,5 +324,25 @@ public class XMLWorkflowFactory extends AbstractWorkflowFactory implements Seria
             this.type = type;
             this.location = location;
         }
+    }
+
+    private File getFile(String location, String type) {
+        if ("URL".equalsIgnoreCase(type)) {
+            try {
+                URL url = new URL(location);
+                return new File(url.getFile());
+            } catch (Exception ex) {
+            }
+        } else if ("file".equalsIgnoreCase(type)) {
+            try {
+                File file = new File(basedir, location);
+                return file;
+            } catch (Exception ex) {
+            }
+        } else {
+            URL url = Thread.currentThread().getContextClassLoader().getResource(location);
+            return new File(url.getFile());
+        }
+        return null;
     }
 }
