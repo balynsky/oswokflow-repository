@@ -1,0 +1,40 @@
+Manifest-Version: 1.0
+Bundle-Description: OpenSymphony OSCore
+Bundle-SymbolicName: opensymphony.oscore
+Built-By: mail_000
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1450985235559
+Import-Package: com.opensymphony.module.random;version="2.2",com.opens
+ ymphony.module.sequence;version="2.2",com.opensymphony.provider;versi
+ on="2.2",com.opensymphony.provider.bean;version="2.2",com.opensymphon
+ y.provider.log;version="2.2",com.opensymphony.provider.xmlprinter;ver
+ sion="2.2",com.opensymphony.provider.xpath;version="2.2",com.opensymp
+ hony.util;version="2.2",javax.ejb;resolution:=optional,javax.mail;ver
+ sion="1.4",javax.mail.internet;version="1.4",javax.naming,javax.rmi,j
+ avax.servlet,javax.xml.parsers,javax.xml.transform,javax.xml.transfor
+ m.dom,javax.xml.transform.stream,ognl;version="2.6",org.apache.common
+ s.logging,org.apache.log4j,org.apache.xalan.serialize,org.apache.xpat
+ h,org.w3c.dom,org.xml.sax,org.xml.sax.helpers
+Tool: Bnd-0.0.357
+Export-Package: ognl;version="2.6.11",com.opensymphony.module.sequence
+ ;uses:="javax.ejb,javax.naming,javax.rmi";version="2.2.7",com.opensym
+ phony.provider.log;uses:="com.opensymphony.provider,org.apache.log4j"
+ ;version="2.2.7",com.opensymphony.module.random;uses:="com.opensympho
+ ny.util";version="2.2.7",com.opensymphony.provider;uses:="org.w3c.dom
+ ";version="2.2.7",com.opensymphony.provider.xmlprinter;uses:="org.w3c
+ .dom,com.opensymphony.provider,org.apache.xalan.serialize";version="2
+ .2.7",com.opensymphony.provider.xpath;uses:="org.w3c.dom,org.apache.x
+ path,com.opensymphony.provider,javax.xml.transform";version="2.2.7",c
+ om.opensymphony.util;uses:="javax.servlet,com.opensymphony.provider,c
+ om.opensymphony.provider.bean,javax.naming,javax.rmi,javax.ejb,org.ap
+ ache.commons.logging,com.opensymphony.provider.log,javax.mail,javax.m
+ ail.internet,org.xml.sax.helpers,org.xml.sax,org.w3c.dom,com.opensymp
+ hony.provider.xmlprinter,javax.xml.transform.dom,javax.xml.parsers,ja
+ vax.xml.transform,javax.xml.transform.stream,com.opensymphony.provide
+ r.xpath";version="2.2.7",com.opensymphony.provider.bean;uses:="com.op
+ ensymphony.provider,ognl";version="2.2.7"
+Bundle-Name: oscore
+Bundle-Version: 2.2.7
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0_40
+

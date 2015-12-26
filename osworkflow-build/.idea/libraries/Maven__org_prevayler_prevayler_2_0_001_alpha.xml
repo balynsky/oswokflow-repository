@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.prevayler:prevayler:2.0.001-alpha">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/prevayler/prevayler/2.0.001-alpha/prevayler-2.0.001-alpha.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/prevayler/prevayler/2.0.001-alpha/prevayler-2.0.001-alpha-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/prevayler/prevayler/2.0.001-alpha/prevayler-2.0.001-alpha-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

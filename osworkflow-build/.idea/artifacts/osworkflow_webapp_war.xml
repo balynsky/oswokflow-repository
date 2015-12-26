@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="osworkflow-webapp:war">
+    <output-path>$PROJECT_DIR$/osworkflow-webapp/target</output-path>
+    <root id="archive" name="osworkflow-webapp.war">
+      <element id="artifact" artifact-name="osworkflow-webapp:war exploded" />
+    </root>
+  </artifact>
+</component>

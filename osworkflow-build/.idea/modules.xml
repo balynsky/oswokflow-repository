@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/oscore/oscore.iml" filepath="$PROJECT_DIR$/oscore/oscore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osworkflow/osworkflow.iml" filepath="$PROJECT_DIR$/osworkflow/osworkflow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osworkflow-build.iml" filepath="$PROJECT_DIR$/osworkflow-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osworkflow-designer/osworkflow-designer.iml" filepath="$PROJECT_DIR$/osworkflow-designer/osworkflow-designer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osworkflow-test/osworkflow-test.iml" filepath="$PROJECT_DIR$/osworkflow-test/osworkflow-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osworkflow-webapp/osworkflow-webapp.iml" filepath="$PROJECT_DIR$/osworkflow-webapp/osworkflow-webapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/propertyset/propertyset.iml" filepath="$PROJECT_DIR$/propertyset/propertyset.iml" />
+    </modules>
+  </component>
+</project>

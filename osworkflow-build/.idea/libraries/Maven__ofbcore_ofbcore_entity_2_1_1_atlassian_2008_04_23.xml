@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: ofbcore:ofbcore-entity:2.1.1-atlassian-2008-04-23">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ofbcore/ofbcore-entity/2.1.1-atlassian-2008-04-23/ofbcore-entity-2.1.1-atlassian-2008-04-23.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/ofbcore/ofbcore-entity/2.1.1-atlassian-2008-04-23/ofbcore-entity-2.1.1-atlassian-2008-04-23-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/ofbcore/ofbcore-entity/2.1.1-atlassian-2008-04-23/ofbcore-entity-2.1.1-atlassian-2008-04-23-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
